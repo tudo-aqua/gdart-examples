@@ -27,7 +27,10 @@ find [WARNING] Corrupted STDOUT by directly writing to native stream in forked J
 In Dumpstream:
 
 ```
+...
 $ less target/surefire-reports/...-jvmRun1.dumpstream
+...
+
 ```
 
 Log:

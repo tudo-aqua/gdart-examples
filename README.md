@@ -14,6 +14,6 @@
 - install submodules 
     - spout: follow instructions in submodule directory
     - dse: run ```./compile-jconstraints.sh``` and ```mvn package```
-    - verifier-stub: ``mvn compile```
+    - verifier-stub: ```mvn compile```
 - fix paths in shell scripts of examples
 
