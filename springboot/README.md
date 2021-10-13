@@ -1,22 +1,39 @@
+# SpringBoot Example
 
-build and install verifier-stub
+## Preparation and Compilation
 
-git clone https://github.com/spring-projects/spring-petclinic.git
+```
+$ git clone https://github.com/spring-projects/spring-petclinic.git
+$ cd spring-petclinic
+$ cp ../pom.xml .
+$ cp ../VisitControllerTests.java src/test/java/org/springframework/samples/petclinic/owner/
+$ mvn clean compile
+```
 
-cd spring-petclinic
+## Concolic Execution
 
-export JAVA_HOME=...
+```
+$ export JAVA_HOME=[path-to-graalvm]
+$ mvn -Dtest=VisitControllerTests.java#testInitNewVisitForm -DargLine="-truffle -Dconcolic.ints=1" test
 
-cp ../pom.xml .
-cp ../VisitControllerTests.java src/test/java/org/springframework/samples/petclinic/owner/
+```
 
-mvn clean compile
+Primary Output:
 
-mvn -Dtest=VisitControllerTests.java#testInitNewVisitForm -DargLine="-truffle -Dconcolic.ints=1" test
-
+```
 find [WARNING] Corrupted STDOUT by directly writing to native stream in forked JVM 1. See FAQ web page and the dump file .../spring-petclinic/target/surefire-reports/...-jvmRun1.dumpstream
+```
 
-less target/surefire-reports/...-jvmRun1.dumpstream
+In Dumpstream:
 
+```
+$ less target/surefire-reports/...-jvmRun1.dumpstream
+```
 
+Log:
+
+```
+...
 Corrupted STDOUT by directly writing to native stream in forked JVM 1. Stream '[DECISION] (assert (= #x00000001 __int_0)) // branchCount=2, branchId=0'.
+...
+```

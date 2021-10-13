@@ -1,6 +1,4 @@
-package org.kotlinlang.play         
-
-import tools.aqua.concolic.Verifier;
+import tools.aqua.concolic.Verifier
 
 fun main() {                        
     println("Hello, World!")
