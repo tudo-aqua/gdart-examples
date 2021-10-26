@@ -3,16 +3,20 @@
 ## Compilation
 
 ```
-$ javac -cp ../verifier-stub/target/classes/ Main.java 
+$ source ../gdart-examples.sh
+$ javac -cp $VERIFIER_STUB_CP Main.java 
 ```
 
 ## Concolic Execution
 
+We record symbolic constraints during teh execution of ```Main``` as follows
+
 ```
-$ [path-to-spoutvm]/bin/java -truffle -ea -cp ../verifier-stub/target/classes/:. Main 
+$ source ../gdart-examples.sh
+$ ../spout.sh -cp $VERIFIER_STUB_CP:. Main 
 ```
 
-Output:
+SPouT will produce the following output that contains a symbolic trace:
 
 ```
 ======================== START PATH [BEGIN].
@@ -33,11 +37,14 @@ Seeded String Values: []
 [ENDOFTRACE]
 ```
 
+We can set a concrete value for variable ```__int_0``` through ```-Dconcolic.ints=101``` as shown below:
+
 ```
-$ [path-to-spoutvm]/bin/java -truffle -ea -cp ../verifier-stub/target/classes/:. -Dconcolic.ints=101 Main 
+$ source ../gdart-examples.sh
+$ ./spout.sh -cp $VERIFIER_STUB_CP:. -Dconcolic.ints=101 Main 
 ```
 
-Output:
+This will drive execution down another path, leading to the following output:
 
 ```
 ======================== START PATH [BEGIN].
@@ -65,12 +72,18 @@ Exception in thread "main" java.lang.AssertionError
 
 ## Concolic Analysis
 
+We use DSE to compute complete symbolic execution trees on the basis of 
+paths recorded by spout:
+
 ```
+$ chmod +x executor.sh
+$ source ../gdart-examples.sh
 $ ../dse.sh -Ddse.executor=./executor.sh -Ddse.dp=multi \
-    "-Ddse.executor.args=-cp ../verifier-stub/target/classes/:. Main" 
+    "-Ddse.executor.args=-cp $VERIFIER_STUB_CP:. Main" 
 ```
 
-Output:
+The analysis will execute the two paths shown above and produce the following output:
+
 
 ```
 ...
@@ -78,7 +91,7 @@ Output:
 ../executor.sh          -cp ../verifier-stub/target/classes/:. Main
 Decision{condition=(100 bvsge '__int_0'), branches=2, branchId=1, assumption=false}
 OK: 
-../executor.sh     -Dconcolic.ints=101     -cp ../verifier-stub/target/classes/:. Main
+../executor.sh     -Dconcolic.ints=101     -cp .../verifier-stub/target/classes/:. Main
 Decision{condition=(100 bvslt '__int_0'), branches=2, branchId=0, assumption=false}
 ERROR: java/lang/AssertionError
 

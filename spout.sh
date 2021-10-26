@@ -4,4 +4,4 @@ basedir=`dirname "$0"`
 
 source $basedir/gdart-examples.sh
 
-java -jar $DSE_JAR "$@"
+$SPOUT_HOME/bin/java -truffle -ea "$@"

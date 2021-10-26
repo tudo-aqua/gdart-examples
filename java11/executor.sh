@@ -1,5 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=[path-to-graalvm]
+# really needed ???
+# export JAVA_HOME=[path-to-graalvm] 
 
-[path-to-spoutvm]/bin/java -truffle -ea $@
+SPOUT_HOME/bin/java -truffle -ea $@
