@@ -4,10 +4,15 @@
 - compile example
 - run with java / spout to observe runtime overhead and JIT
 
+The presented output are traces measured on our machines. The important fact to observe
+is the decrease in time during iterations as this is the main feature of JIT in the JVM.
+
+For reproduction, it is not important, if the times are matched exactly as long as the trend stays the same.
+
 # Running Java‚
 
 ```
-$ java -ea -cp ../verifier-stub/target/classes/:. Main
+$ java -ea -cp $VERIFIER_STUB_CP:. Main
 ```
 
 Output:

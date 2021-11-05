@@ -1,19 +1,37 @@
 # Kotlin Example
 
+The Kotlin example demonstrates the exploration of a Kotlin code snippet.
+Run the `./run-example.sh` script to execute the example. The remainder of the README.md file explains the steps
+in the script.
 
-- Download Kotlin, e.g., https://github.com/JetBrains/kotlin/releases/tag/v1.5.31
+## Setup Kotlin
+
+First, we need to install Kotlin.
+
+If you want to explore more Kotlin programs on your system, it might be useful to install Kotlin and add it to the path (e.g., you will get it here: https://github.com/JetBrains/kotlin/releases/tag/v1.5.31)
+
+For running the example, we added a zipped Kotlin compiler to the artifact.
+It contains a Kotlin compiler and will be extracted and setup for the example as part of the script.
+Once the zip is extracted,
+KOTLIN_HOME and SPOUT_HOME are set by sourcing gdart-examples.sh with:
+
+```
+source ../gdart-example.sh
+```
 
 ## Compile 
 
 ```
-$ [path-to-kotlin]/bin/kotlinc -cp ../verifier-stub/target/classes/ Main.kt 
-export JAVA_HOME=[path-to-spoutvm]
+$KOTLIN_HOME/bin/kotlinc -cp $VERIFIER_STUB_CP Main.kt
+export JAVA_HOME=$SPOUT_HOME
 ```
 
 ## Concolic Execution
 
+We execute the Kotlin program with SPouT without setting any concrete values for the
+concrete variables.
 ```
-$ [path-to-kotlin]/bin/kotlin -J"-truffle" -J"-ea" -cp ../verifier-stub/target/classes/:. MainKt
+$KOTLIN_HOME/bin/kotlin -J"-truffle" -J"-ea" -cp $VERIFIER_STUB_CP:. MainKt
 ```
 
 Output:
@@ -38,15 +56,15 @@ Hello, World!
 [ENDOFTRACE]
 ```
 
-With concolic values:
+Then the script reruns the same command setting the first symbolic int to 1:
 
 
 ```
-$ [path-to-kotlin]/bin/kotlin -J"-truffle" -J"-ea" -cp ../verifier-stub/target/classes/:. -Dconcolic.ints=1 MainKt
+$KOTLIN_HOME/bin/kotlin -J"-truffle" -J"-ea" -cp $VERIFIER_STUB_CP:. -Dconcolic.ints=1 MainKt
 
 ```
 
-Output:
+This will trigger an assertion in the output:
 
 
 ```
@@ -81,22 +99,23 @@ Exception in thread "main" java.lang.AssertionError: Assertion failed
 ```
 
 ## Concolic Analysis
-
+The concolic analysis explores the complete symbolic branching tree in the program.
+It is invoked using the following command:
 ```
- ../dse.sh -Ddse.executor=./executor.sh -Ddse.dp=multi "-Ddse.executor.args=-cp ../verifier-stub/target/classes/:. MainKt" 
+ ../dse.sh -Ddse.executor=./executor.sh -Ddse.dp=multi "-Ddse.executor.args=-cp $VERIFIER_STUB_CP:. MainKt"
  ```
 
-Output:
+The expected output is:
 
 
 ```
 ...
 
 
-./executor.sh          -cp ../verifier-stub/target/classes/:. MainKt
+./executor.sh          -cp ../../tools/GDart/:. MainKt
 Decision{condition=('__int_0' bvsle 0), branches=2, branchId=1, assumption=false}
 OK: 
-./executor.sh     -Dconcolic.ints=2     -cp ../verifier-stub/target/classes/:. MainKt
+./executor.sh     -Dconcolic.ints=2     -cp ../../tools/GDart/:. MainKt
 Decision{condition=!('__int_0' bvsle 0), branches=2, branchId=0, assumption=false}
 ERROR: java/lang/AssertionError
 
@@ -107,5 +126,6 @@ ERROR: java/lang/AssertionError
 
 [END OF OUTPUT]
 ```
-
+In the Kotlin example is only one branching condition guarding an assertion error. This
+error get triggered once and skipped on the other branch.
 

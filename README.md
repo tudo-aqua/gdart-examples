@@ -20,7 +20,7 @@ The following examples are contained in this projects.
 - java11: Demonstrates the analysis of modern Java features with SPouT and DSE (Java Lambda Expression)
 - jit: Demonstrates that SPouT profits from JIT (Just in time compilation)
 - kotlin: Demonstrates the application of SPouT and DSE to Kotlin programs
-- scala:  Demonstrates the application of SPouT and DSE to Scala programs
+- scala:  Demonstrates the application of SPouT to Scala programs
 - springboot: Demonstrates that SPouT scales to concolic execution of tests in a SpringBoot web-application through maven
 
 ## Before Running Examples

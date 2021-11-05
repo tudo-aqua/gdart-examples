@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-basedir=`dirname "$0"`
-
-source $basedir/gdart-examples.sh
+DIR=$(dirname $BASH_SOURCE)
+source $DIR/gdart-examples.sh
 
 $SPOUT_HOME/bin/java -truffle -ea "$@"

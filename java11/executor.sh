@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# really needed ???
-# export JAVA_HOME=[path-to-graalvm] 
+source ../gdart-examples.sh
 
-SPOUT_HOME/bin/java -truffle -ea $@
+$SPOUT_HOME/bin/java -truffle -ea $@

@@ -1,5 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=[path-to-spoutvm]
+source ../gdart-examples.sh
+export JAVA_HOME=$SPOUT_HOME
 
-[path-to-kotlin]/bin/kotlin -J"-truffle" -J"-ea" $@
+$KOTLIN_HOME/bin/kotlin -J"-truffle" -J"-ea" $@
