@@ -1,10 +1,6 @@
 #!/bin/bash
 source ../gdart-examples.sh
 
-pushd ../../deps;
-    unzip -o scala3-3.1.0-RC2.zip
-popd;
-
 export JAVA_HOME=$SPOUT_HOME
 
 $SCALA_HOME/bin/scalac -cp $VERIFIER_STUB_CP Main.scala

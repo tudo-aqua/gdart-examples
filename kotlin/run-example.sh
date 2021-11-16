@@ -1,9 +1,6 @@
 #!/bin/bash
 source ../gdart-examples.sh
 
-pushd ../../deps;
-    unzip -o kotlin-compiler-1.5.31.zip
-popd;
 
 export JAVA_HOME=$SPOUT_HOME
 

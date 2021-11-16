@@ -2,27 +2,18 @@
 
 DIR=$(dirname $BASH_SOURCE)
 
-if [ ! -d $DIR/../tools/GDart ]; then
-    pushd $DIR/../tools/;
-     unzip -o GDart.zip -d GDart
-    popd;
-fi
-
-SPOUT_HOME=$DIR/../tools/GDart/SPouT/sdk/mxbuild/linux-amd64/GRAALVM_ESPRESSO_NATIVE_CE_JAVA11/graalvm-espresso-native-ce-java11-21.2.0/
+SPOUT_HOME=$DIR/../gdart-svcomp/spout/sdk/mxbuild/linux-amd64/GRAALVM_ESPRESSO_NATIVE_CE_JAVA11/graalvm-espresso-native-ce-java11-21.2.0/
 
 JAVA_HOME=$(realpath $SPOUT_HOME)
 
-DSE_JAR=$DIR/../tools/GDart/dse/target/dse-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+DSE_JAR=$DIR/../gdart-svcomp/dse/target/dse-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 
-VERIFIER_STUB_CP=$DIR/../tools/GDart/
+VERIFIER_STUB_CP=$DIR/../gdart-svcomp/verifier-stub/target/verifier-stub-1.0.jar
 
-pushd $VERIFIER_STUB_CP;
-    javac tools/aqua/concolic/Verifier.java
-popd;
 # for kotlin example
 #
-KOTLIN_HOME=$DIR/../deps/kotlinc/
+KOTLIN_HOME=[[ SET PATH TO KOTLIN HOME ]]
 
 # for scala example
 #
-SCALA_HOME=$DIR/../deps/scala3-3.1.0-RC2/
+SCALA_HOME=[[ SET PATH TO SCALA HOME ]]
