@@ -54,9 +54,11 @@ if required.
 `gdart-examples.sh` contains different locations.
 The assumption is that your directory layout is as follows:
 
+```
 shared-parent
--> gdart-examples
--> gdart-svcomp
+|-> gdart-examples
+|-> gdart-svcomp
+```
 
 Otherwise, it is required to modify the paths accordingly to match your local installation.
 
