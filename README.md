@@ -68,3 +68,5 @@ The KOLTIN\_HOME and SCALA\_HOME are required to run the kotlin and scala exampl
 Once the compilation is complete and the paths in ```gdart-examples.sh``` are adapted to the
 paths for kotlin and scala on your machine, it should be possible to go into the example directories
 and run the `./run-example.sh` script.
+
+*Disclaimer: Currently, the shell scripts are only provided for Linux. GDart runs on OSX as well, but you will need to adapt the location of SPouT in the `gdart-examples.sh` script.*
